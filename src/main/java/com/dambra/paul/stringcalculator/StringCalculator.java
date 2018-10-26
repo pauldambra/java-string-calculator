@@ -15,6 +15,7 @@ class StringCalculator {
     private BinaryOperator<ArrayList<String>> noOpCombiner = (a, b) -> a;
 
     String calculate(String input) {
+        input = input.replace(" ", "");
         var parts = toCalculationParts(input);
         var result = performCalculations(parts);
 

@@ -15,6 +15,7 @@ class TheStringCalculator {
     private static Stream<Arguments> calculationCasesProvider() {
         return Stream.of(
                 Arguments.of("1+1", "2"),
+                Arguments.of("1 + 1", "2"),
                 Arguments.of("1+2", "3"),
                 Arguments.of("2+1", "3"),
                 Arguments.of("10+1", "11"),
