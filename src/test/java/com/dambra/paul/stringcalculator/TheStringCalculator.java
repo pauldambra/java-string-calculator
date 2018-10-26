@@ -1,33 +1,31 @@
 package com.dambra.paul.stringcalculator;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TheStringCalculator {
-    @Test
-    public void CanAddOneToOneAndGetTwo() {
-        assertThat(new StringCalculator().calculate("1+1")).isEqualTo("2");
+
+    private final StringCalculator stringCalculator = new StringCalculator();
+
+    private static Stream<Arguments> additionCasesProvider() {
+        return Stream.of(
+                Arguments.of("1+1", "2"),
+                Arguments.of("1+2", "3"),
+                Arguments.of("2+1", "3"),
+                Arguments.of("10+1", "11"),
+                Arguments.of("1+11", "12")
+        );
     }
 
-    @Test
-    public void CanAddOneToTwoAndGetThree() {
-        assertThat(new StringCalculator().calculate("1+2")).isEqualTo("3");
-    }
-
-    @Test
-    public void CanAddTwoToOneAndGetThree() {
-        assertThat(new StringCalculator().calculate("2+1")).isEqualTo("3");
-    }
-
-    @Test
-    public void CanAddTenToOne() {
-        assertThat(new StringCalculator().calculate("10+1")).isEqualTo("11");
-    }
-
-    @Test
-    public void CanAddOneToEleven() {
-        assertThat(new StringCalculator().calculate("1+11")).isEqualTo("12");
+    @ParameterizedTest(name = "{index} => {0}={1}")
+    @MethodSource("additionCasesProvider")
+    public void CanAddOneToOneAndGetTwo(String sum, String result) {
+        assertThat(stringCalculator.calculate(sum)).isEqualTo(result);
     }
 }
 
