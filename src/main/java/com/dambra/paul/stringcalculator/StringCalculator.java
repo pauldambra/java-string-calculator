@@ -104,7 +104,7 @@ class StringCalculator {
                     x.add(result);
                 }
             }
-            parts = x;
+            return collapseBrackets(x);
         }
         return parts;
     }
@@ -129,12 +129,10 @@ class StringCalculator {
     }
 
     private ArrayList<String> splitParts(String input) {
-        ArrayList<String> startingParts = new ArrayList<>();
-        startingParts.add("");
 
         return input.chars()
                 .mapToObj(c -> (char) c)
-                .reduce(startingParts, calculationReducer(), noOpCombiner);
+                .reduce(new ArrayList<>(), calculationReducer(), noOpCombiner);
     }
 
     private BiFunction<ArrayList<String>, Character, ArrayList<String>> calculationReducer() {
@@ -150,13 +148,17 @@ class StringCalculator {
 
     // ugh, side effects
     private void accumulateADigit(ArrayList<String> acc, Character c) {
-        var last = acc.get(acc.size() - 1);
-        if (last.matches("[^0-9]")) {
-            acc.add("");
-            last = acc.get(acc.size() - 1);
+        if (acc.isEmpty()) {
+            acc.add(String.valueOf(c));
+        } else {
+            var last = acc.get(acc.size() - 1);
+            if (last.matches("[^0-9]")) {
+                acc.add("");
+                last = acc.get(acc.size() - 1);
+            }
+            var current = last + c;
+            acc.set(acc.size() - 1, current);
         }
-        var current = last + c;
-        acc.set(acc.size() - 1, current);
     }
 
     //ugh, side effects

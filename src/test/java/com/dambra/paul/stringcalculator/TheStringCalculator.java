@@ -29,7 +29,10 @@ class TheStringCalculator {
                 Arguments.of("2*7-7", "7"),
                 Arguments.of("7/2", "3.5"),
                 Arguments.of("2*7+10-4/2", "10"),
-                Arguments.of("4 * (3+2)", "20")
+                Arguments.of("4 * (3+2)", "20"),
+                Arguments.of("4 * (3+2) / 10", "2"),
+                Arguments.of("4 * (3+2) + 10", "30"),
+                Arguments.of("(3+2) * (2 + 2)", "20")
         );
     }
 
