@@ -22,13 +22,35 @@ class StringCalculator {
     }
 
     private double performCalculations(ArrayList<String> parts) {
-        var total = 0;
-        for (var index = 0; index < parts.size(); index++) {
-            if (index % 2 == 0) {
-                total += Double.valueOf(parts.get(index));
-            }
+        var firstCalculation = parts.subList(0, 3);
+        var tail = parts.subList(3, parts.size());
+
+        var total = performCalculation(firstCalculation.get(1), Double.valueOf(firstCalculation.get(0)), firstCalculation.get(2));
+        for (var index = 0; index < tail.size(); index+=2) {
+            var operator = tail.get(index);
+            var next = tail.get(index + 1);
+            total = performCalculation(operator, total, next);
         }
 
+        return total;
+    }
+
+    private double performCalculation(String operator, double total, String next) {
+        var nextValue = Double.valueOf(next);
+        switch (operator) {
+            case "+":
+                total += nextValue;
+                break;
+            case "-":
+                total -= nextValue;
+                break;
+            case "/":
+                total /= nextValue;
+                break;
+            default:
+                total *= nextValue;
+                break;
+        }
         return total;
     }
 
