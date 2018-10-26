@@ -16,11 +16,20 @@ class StringCalculator {
 
     String calculate(String input) {
         var parts = toCalculationParts(input);
-        var result = Double.valueOf(parts.get(0)) + Double.valueOf(parts.get(2));
-        if(parts.size() == 5) {
-            result += Double.valueOf(parts.get(4));
-        }
+        var result = performCalculations(parts);
+
         return stripPointZeroFromResult(result);
+    }
+
+    private double performCalculations(ArrayList<String> parts) {
+        var total = 0;
+        for (var index = 0; index < parts.size(); index++) {
+            if (index % 2 == 0) {
+                total += Double.valueOf(parts.get(index));
+            }
+        }
+
+        return total;
     }
 
     private String stripPointZeroFromResult(double result) {
