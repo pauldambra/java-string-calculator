@@ -1,31 +1,28 @@
 package com.dambra.paul.stringcalculator
 
-internal object RecursivelyProcessBracketedCalculations {
-    fun from(parts: MutableList<String>): MutableList<String> {
-        if (!parts.contains("(")) {
-            return parts
-        }
+private fun replaceBracketsWithResult(parts: List<String>, start: Int, end: Int, result: String): List<String> {
+    val filteredParts = parts.filterIndexed { i, _ -> i < start || i > end }.toMutableList()
+    filteredParts.add(start, result)
+    return filteredParts.toList()
+}
 
-        val start = parts.indexOf("(")
-        val end = parts.indexOf(")")
+private fun calculateInsideBrackets(parts: List<String>, start: Int, end: Int) =
+        StringCalculator().calculate(getContentsOfBrackets(parts, start, end))
 
-        val result = calculateInsideBrackets(parts, start, end)
+private fun getContentsOfBrackets(parts: List<String>, start: Int, end: Int) =
+        parts.subList(start + 1, end).joinToString("")
 
-        val filteredParts = replaceBracketsWithResult(parts, start, end, result)
-
-        return RecursivelyProcessBracketedCalculations.from(filteredParts)
+fun List<String>.recursivelyProcessBracketedCalculations(): List<String> {
+    if (!this.contains("(")) {
+        return this
     }
 
-    private fun replaceBracketsWithResult(parts: MutableList<String>, start: Int, end: Int, result: String): MutableList<String> {
-        val filteredParts = parts.filterIndexed { i, _ -> i < start || i > end }.toMutableList()
-        filteredParts.add(start, result)
-        return filteredParts
-    }
+    val start = this.indexOf("(")
+    val end = this.indexOf(")")
 
-    private fun calculateInsideBrackets(parts: MutableList<String>, start: Int, end: Int) =
-            StringCalculator().calculate(getContentsOfBrackets(parts, start, end))
+    val result = calculateInsideBrackets(this, start, end)
 
-    private fun getContentsOfBrackets(parts: MutableList<String>, start: Int, end: Int) =
-            parts.subList(start + 1, end).joinToString("")
+    val filteredParts = replaceBracketsWithResult(this, start, end, result)
 
+    return filteredParts.recursivelyProcessBracketedCalculations()
 }
