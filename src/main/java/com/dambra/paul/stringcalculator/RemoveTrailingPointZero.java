@@ -1,7 +1,7 @@
 package com.dambra.paul.stringcalculator;
 
-class EmptyDecimalRemovingParser {
-    static String parse(double result) {
+class RemoveTrailingPointZero {
+    static String from(double result) {
         return String.valueOf(result).replaceFirst("\\.0$", "");
     }
 }

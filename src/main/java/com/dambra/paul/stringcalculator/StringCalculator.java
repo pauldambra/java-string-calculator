@@ -3,11 +3,11 @@ package com.dambra.paul.stringcalculator;
 class StringCalculator {
 
     String calculate(String input) {
-        var stringOperations = StringOperatorParser.parse(input);
-        var parts = BracketsProcessingParser.parse(stringOperations);
-        var calculationStart = CalculationPartsParser.parse(parts);
+        var stringOperations = SplitToStringOperations.from(input);
+        var parts = RecursivelyProcessBracketedCalculations.from(stringOperations);
+        var calculationStart = StringOperationsToCalculationParts.from(parts);
         var result = calculationStart.Calculate(0);
-        return EmptyDecimalRemovingParser.parse(result);
+        return RemoveTrailingPointZero.from(result);
     }
 
 }

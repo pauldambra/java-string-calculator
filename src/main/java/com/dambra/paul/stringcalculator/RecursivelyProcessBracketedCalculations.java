@@ -2,8 +2,8 @@ package com.dambra.paul.stringcalculator;
 
 import java.util.ArrayList;
 
-class BracketsProcessingParser {
-    static ArrayList<String> parse(ArrayList<String> parts) {
+class RecursivelyProcessBracketedCalculations {
+    static ArrayList<String> from(ArrayList<String> parts) {
         if (!parts.contains("(")) {
             return parts;
         }
@@ -15,7 +15,7 @@ class BracketsProcessingParser {
         var result = new StringCalculator().calculate(insideBrackets);
 
         var x = replaceBracketsDelimitedOperationsWithResult(parts, start, end, result);
-        return BracketsProcessingParser.parse(x);
+        return RecursivelyProcessBracketedCalculations.from(x);
     }
 
     private static ArrayList<String> replaceBracketsDelimitedOperationsWithResult(ArrayList<String> parts, int start, int end, String result) {

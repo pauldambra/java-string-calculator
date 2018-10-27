@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 
-class StringOperatorParser {
+class SplitToStringOperations {
     /**
      * While you don't use a parallel stream the combiner will never be called and
      * since the reduce operation here is broken if not sequential any combiner can
@@ -13,7 +13,7 @@ class StringOperatorParser {
      */
     private static BinaryOperator<ArrayList<String>> noOpCombiner = (a, b) -> a;
 
-    static ArrayList<String> parse(String s) {
+    static ArrayList<String> from(String s) {
         s = s.replaceAll("\\s+", "");
         return splitParts(s);
     }

@@ -7,8 +7,8 @@ import com.dambra.paul.stringcalculator.calculationParts.Operation;
 
 import java.util.ArrayList;
 
-class CalculationPartsParser {
-    static CalculationPart parse(ArrayList<String> stringOperations) {
+class StringOperationsToCalculationParts {
+    static CalculationPart from(ArrayList<String> stringOperations) {
         var firstOperation = new BareNumber(stringOperations.get(0));
         CalculationPart mostRecentOperation = firstOperation;
 
