@@ -1,19 +1,21 @@
-package com.dambra.paul.stringcalculator;
+package com.dambra.paul.stringcalculator
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 
-import java.util.stream.Stream;
+import java.util.stream.Stream
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions.assertThat
 
-class TheStringCalculator {
+internal class TheStringCalculator {
 
-    private final StringCalculator stringCalculator = new StringCalculator();
+    private val stringCalculator = StringCalculator()
 
-    private static Stream<Arguments> calculationCasesProvider() {
-        return Stream.of(
+    companion object {
+        @Suppress("unused")
+        @JvmStatic
+        fun calculationCasesProvider(): Stream<Arguments> = Stream.of(
                 Arguments.of("1+1", "2"),
                 Arguments.of("1 + 1", "2"),
                 Arguments.of("1+2", "3"),
@@ -33,13 +35,13 @@ class TheStringCalculator {
                 Arguments.of("4 * (3+2) / 10", "2"),
                 Arguments.of("4 * (3+2) + 10", "30"),
                 Arguments.of("(3+2) * (2 + 2)", "20")
-        );
+        )
     }
 
     @ParameterizedTest(name = "{index} => {0}={1}")
     @MethodSource("calculationCasesProvider")
-    void CanAddOneToOneAndGetTwo(String sum, String result) {
-        assertThat(stringCalculator.calculate(sum)).isEqualTo(result);
+    fun canCompleteCalculations(sum: String, result: String) {
+        assertThat(stringCalculator.calculate(sum)).isEqualTo(result)
     }
 }
 

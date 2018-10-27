@@ -31,7 +31,5 @@ internal object SplitToStringOperations {
     }
 
     //ugh, side effects
-    private fun foundOperator(acc: MutableList<String>, c: Char?) {
-        acc.add(c.toString())
-    }
+    private fun foundOperator(acc: MutableList<String>, c: Char?) = acc.add(c.toString())
 }
